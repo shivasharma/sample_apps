@@ -322,8 +322,8 @@ end
 describe "as an admin user" do
 
 		before(:each) do
-		admin = Factory(:user, :email => "admin@example.com", :admin => true)
-		test_sign_in(admin)
+		@admin = Factory(:user, :email => "admin@example.com", :admin => true)
+		test_sign_in(@admin)
 	end
 
 
@@ -340,11 +340,20 @@ it "should redirect to the users page" do
 end
 
 
-it "should notdelete itself" do
-test_sign_in(admin)
-delete :destroy, :id => admin
+#it "should notdelete itself" do
+#test_sign_in(admin)
+#delete :destroy, :id => admin
+#response.should redirect_to(users_path)
+#end
+
+## users from destroying themselves.
+it "should prevent admin users from destroying themselves" do
+lambda do
+delete :destroy, :id => @admin
+end.should_not change(User, :count) 
 response.should redirect_to(users_path)
 end
+end 
 
 end
 end
