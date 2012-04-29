@@ -18,6 +18,17 @@ describe UsersController do
 		before(:each) do	
 			@user = Factory(:user)
 		end
+		
+		it "should show the user's microposts" do
+			mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
+			mp2 = Factory(:micropost, :user => @user, :content => "Baz quux")
+			get :show, :id => @user
+			response.should have_selector("span.content", :content => mp1.content)
+			response.should have_selector("span.content", :content => mp2.content)
+		end
+		
+		
+		
 		it "should be successful" do
 			get :show, :id => @user
 			response.should be_success
@@ -359,7 +370,18 @@ end
 end
 
 
-
+it "should paginate the microposts" do 
+32.times do 
+mp = Factory(:micropost, :user => @user, :content => "fooooo baaaar") 
+end 
+get :show, :id => @user 
+response.should have_selector("div.pagination") 
+response.should have_selector("span.disabled", :content => "Previous") 
+response.should have_selector("a", :href => "/users/1?page=2", 
+:content => "2") 
+response.should have_selector("a", :href => "/users/1?page=2", 
+:content => "Next") 
+end
 
 
 end

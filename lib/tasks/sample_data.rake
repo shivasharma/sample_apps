@@ -1,4 +1,5 @@
 namespace :db do
+
 desc "Fill database with sample data"
 task :populate => :environment do
 	Rake::Task['db:reset'].invoke
@@ -18,4 +19,10 @@ User.create!(:name => name,
 :password_confirmation => password)
 end
 end
+
+	50.times do
+			User.all(:limit => 6).each do |user|
+			user.microposts.create!(:content => Faker::Lorem.sentence(5))
+		end
+	end
 end
