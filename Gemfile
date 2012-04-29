@@ -4,7 +4,7 @@ gem 'rails', '3.0.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'jquery-rails'
+#gem 'jquery-rails'
 gem 'sqlite3','1.3.3'
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'will_paginate', '3.0.pre2'
@@ -21,5 +21,7 @@ group :test do
  # gem 'rspec-rails', '2.6.1'
   gem 'webrat', '0.7.1'
   gem 'factory_girl_rails', '1.0'
- 
+ # gem 'rake', '0.8.7'
+ gem 'turn', :require => false
+
 end
